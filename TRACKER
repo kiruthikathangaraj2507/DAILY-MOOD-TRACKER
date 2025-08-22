@@ -1,0 +1,54 @@
+import pandas as pd
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+# You can create your data manually or upload a CSV
+data = {
+    'Date': ['2025-08-01', '2025-08-02', '2025-08-03', '2025-08-04', '2025-08-05'],
+    'Mood': [7, 5, 8, 6, 9],
+    'Sleep': [8, 6, 7, 5, 9],
+    'Screen': [3, 6, 2, 7, 2],
+    'Study': [2, 1, 4, 2, 5]
+}
+
+df = pd.DataFrame(data)
+
+# Show the data
+print("📅 Daily Mood Tracker Data:")
+print(df)
+
+# Correlation matrix
+corr = df[['Mood', 'Sleep', 'Screen', 'Study']].corr()
+
+print("\n🔗 Correlation Matrix:")
+print(corr)
+
+# Heatmap
+plt.figure(figsize=(8, 6))
+sns.heatmap(corr, annot=True, cmap='coolwarm', fmt=".2f")
+plt.title('Mood Correlation Matrix')
+plt.tight_layout()
+plt.show()
+
+# Dashboard plots
+plt.figure(figsize=(12, 8))
+
+plt.subplot(2, 2, 1)
+sns.lineplot(x='Date', y='Mood', data=df, marker='o')
+plt.title('Daily Mood Trend')
+plt.xticks(rotation=45)
+
+plt.subplot(2, 2, 2)
+sns.scatterplot(x='Sleep', y='Mood', data=df)
+plt.title('Mood vs Sleep')
+
+plt.subplot(2, 2, 3)
+sns.scatterplot(x='Screen', y='Mood', data=df)
+plt.title('Mood vs Screen Time')
+
+plt.subplot(2, 2, 4)
+sns.scatterplot(x='Study', y='Mood', data=df)
+plt.title('Mood vs Study Time')
+
+plt.tight_layout()
+plt.show()
